@@ -19,6 +19,11 @@ export const routes = [
     component: <BadgePlus strokeWidth={strokeWidth} color={primaryColor} />,
   },
   {
+    label: "Organized",
+    route: "/organized",
+    component: <BadgePlus strokeWidth={strokeWidth} color={primaryColor} />,
+  },
+  {
     label: "Registered",
     route: "/registered",
     component: (
