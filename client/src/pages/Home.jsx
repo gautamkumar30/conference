@@ -18,7 +18,7 @@ const Home = () => {
     // <div className="grow-1 w-full max-w-maxwidth h-max p-10 flex flex-col gap-10 overflow-hidden">
     <div className="page-wrapper">
       {/* <h1 className="text-heading">Welcome Gautam,</h1> */}
-      <h1 className="text-heading">Welcome {userInfo.username},</h1>
+      <h1 className="text-heading">Welcome {userInfo?.username},</h1>
       <div className="w-full h-[200px] rounded-[20px] rounded-br-[100px] overflow-hidden">
         <img
           src="dashboardpic.png"

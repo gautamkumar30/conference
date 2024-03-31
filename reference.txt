@@ -1,0 +1,2 @@
+date-fns - npm install
+format(new Date(createdAt), 'MMM d, yyyy')

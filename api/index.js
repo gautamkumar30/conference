@@ -5,6 +5,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import { User } from "./models/User.js";
+import { Person } from "./models/Person.js";
+import { Conference } from "./models/Conference.js";
 
 const app = express();
 
@@ -78,6 +80,28 @@ app.get("/profile", (req, res) => {
     if (err) res.json("Error occured");
     res.json(info);
   });
+});
+
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json("OK");
+});
+
+app.get("/create", (req, res) => {
+  res.send("MASSSSSSS!!!!!");
+});
+
+app.post("/create", async (req, res) => {
+  try {
+    const conferenceDoc = await Conference.create({
+      title: "Research",
+      //   password: bcrypt.hashSync(password, salt),
+      location: "Chennai",
+    });
+
+    res.json(conferenceDoc);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
 app.listen(4000);

@@ -1,11 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../../utils/navigation.jsx";
 import { useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext.jsx";
 
 const Sidebar = () => {
   const location = useLocation();
 
-  const { pathname, search, hash } = location;
+  const { pathname } = location;
+
+  const { setUserInfo } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  function logout() {
+    fetch("http://localhost:4000/logout", {
+      credentials: "include",
+      method: "POST",
+    });
+    // setUsername(null);
+    setUserInfo(null);
+    // alert("Logged out");
+    navigate("/login");
+  }
+
   return (
     <aside className="border-0 w-80 flex justify-center items-center grow-0 shrink-0">
       <div className="fixed w-64 h-[90%] border-r-2 border-[#23316940] p-6 flex flex-col items-center gap-5">
@@ -33,6 +51,7 @@ const Sidebar = () => {
               </p>
             </Link>
           ))}
+          <button onClick={logout}>Log out</button>
         </div>
       </div>
     </aside>
