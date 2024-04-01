@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const FormChild = ({ id, label, placeholder }) => {
   return (
@@ -39,6 +40,7 @@ const formList = [
 ];
 
 const Organize = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:4000/profile", { credentials: "include" }).then(
       (response) => {
@@ -83,10 +85,15 @@ const Organize = () => {
       headers: { "Content-Type": "application/json" },
     });
 
-    const responseData = await response.json();
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log("This is response data");
+      console.log(responseData);
 
-    console.log("This is response data");
-    console.log(responseData);
+      alert("Conference created successfully!");
+      navigate("/");
+      // return <Navigate to="/" />;
+    }
   }
   return (
     <div className="page-wrapper">

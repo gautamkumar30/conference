@@ -85,17 +85,13 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("OK");
 });
 
-app.get("/create", (req, res) => {
-  res.send("MASSSSSSS!!!!!");
-});
-
 app.post("/create-conference", async (req, res) => {
   try {
     console.log(req.body);
 
     const conferenceDoc = await Conference.create(req.body);
 
-    res.json(conferenceDoc);
+    res.status(201).json(conferenceDoc);
   } catch (error) {
     res.status(400).send(error.message);
   }
