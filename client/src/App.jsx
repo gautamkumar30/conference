@@ -8,6 +8,7 @@ import Registered from "./pages/Registered";
 import Organized from "./pages/Organized";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ConferenceDetails from "./pages/ConferenceDetails";
 import { UserContextProvider } from "./contexts/UserContext";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
               <Route path="/registered" element={<Registered />} />
               <Route path="/explore" element={<Explore />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/conference" element={<ConferenceDetails />} />
             </Route>
           </Routes>
         </main>
