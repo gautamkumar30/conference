@@ -32,6 +32,11 @@ body {
     @apply w-full max-w-maxwidth h-max p-10 flex flex-col gap-10 overflow-hidden;
   }
 
+  /* Button Styles */
+  .button-cta {
+    @apply px-14 py-3 rounded-lg bg-primary text-white font-medium;
+  }
+
   /* Typography */
   .text-heading {
     @apply text-primary font-semibold text-[38px] tracking-tighter;

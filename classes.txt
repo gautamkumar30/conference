@@ -1,0 +1,19 @@
+# CMS
+
+# Classes
+
+- **User**
+    - Attributes: _id, Name, University/Organization, Email
+    - Methods: RegisterForConference()
+- **Conference**
+    - Attributes: Title, Date, Venue, Description, PostedDate, Organizers, RegistrationAmount, Theme, Chairpersons, Speakers (optional), Papers
+        - Methods: UpdateDetails(), CancelConference(), InviteChairpersons()
+- **Attendee**
+    - Attributes: UserId, ConferenceId, DateRegistered (metadata), PaperId
+    - Methods: CancelRegistration(), UpdateDetails(), SubmitPaper()
+- **Paper:**
+    - Attributes: AuthorId, Title, PaperLink, TotalRating, Ratings (array with chairpersonId-rating pairs)
+    - Methods: UpdateDetails()
+- **Invitations:**
+    - Attributes: SenderId, ReceiverId, Role, Timestamp (metadata), status
+    - Methods: SendNotification(), ReceiveNotification(), AcceptRole(), RejectRole()

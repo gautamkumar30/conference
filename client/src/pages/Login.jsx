@@ -30,24 +30,31 @@ const Login = () => {
     }
   }
 
+  const inputClassName =
+    "h-[40px] border-primary border-[1px] rounded-lg px-4 py-6 focus:border-none focus:border-primary bg-transparent";
+
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={login}>
-        <input
-          type="text"
-          placeholder="enter username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="enter password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
+    <div className="w-full h-full bg-red-50 flex justify-center items-center">
+      <div className="flex flex-col gap-10">
+        <h1 className="text-center text-primary">Login</h1>
+        <form onSubmit={login} className="flex flex-col">
+          <input
+            type="text"
+            placeholder="enter username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            className={inputClassName}
+          />
+          <input
+            type="text"
+            placeholder="enter password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            className={inputClassName}
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 };
