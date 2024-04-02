@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import ConferenceDetails from "./pages/ConferenceDetails";
 import { UserContextProvider } from "./contexts/UserContext";
 import SubmittedPapers from "./pages/SubmittedPapers";
+import Invitation from "./pages/InvitationPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/conference" element={<ConferenceDetails />} />
               <Route path="/submittedpapers" element={<SubmittedPapers />} />
+              <Route path="/invitations" element={<Invitation />} />
             </Route>
           </Routes>
         </main>
