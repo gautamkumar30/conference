@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./layouts/Layout";
-import Organize from "./pages/Organize";
+import Organize from "./pages/CreateConference";
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Registered from "./pages/Registered";
@@ -12,6 +12,7 @@ import ConferenceDetails from "./pages/ConferenceDetails";
 import { UserContextProvider } from "./contexts/UserContext";
 import SubmittedPapers from "./pages/SubmittedPapers";
 import Invitation from "./pages/InvitationPage";
+import CreateConference from "./pages/CreateConference";
 
 function App() {
   return (
@@ -26,14 +27,14 @@ function App() {
             {/* Protected Routes */}
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="/organize" element={<Organize />} />
-              <Route path="/organized" element={<Organized />} />
-              <Route path="/registered" element={<Registered />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/create-conference" element={<CreateConference />} />
               <Route path="/conference" element={<ConferenceDetails />} />
-              <Route path="/submittedpapers" element={<SubmittedPapers />} />
+              <Route path="/conference/:id/papers" element={<SubmittedPapers />} />
               <Route path="/invitations" element={<Invitation />} />
+              <Route path="/conference/:id" element={<ConferenceDetails />} />
+              <Route path="/conference/registered" element={<Registered />} />
+              <Route path="/conference/organized" element={<Organized />} />
+              {/* <Route path="/" element={< />} /> */}
             </Route>
           </Routes>
         </main>
