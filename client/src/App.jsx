@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ConferenceDetails from "./pages/ConferenceDetails";
 import { UserContextProvider } from "./contexts/UserContext";
+import SubmittedPapers from "./pages/SubmittedPapers";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/explore" element={<Explore />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/conference" element={<ConferenceDetails />} />
+              <Route path="/submittedpapers" element={<SubmittedPapers />} />
             </Route>
           </Routes>
         </main>
