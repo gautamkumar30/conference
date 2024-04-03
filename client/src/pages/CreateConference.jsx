@@ -54,6 +54,14 @@ const CreateConference = () => {
 
   const { userInfo, setUserInfo } = useContext(UserContext);
 
+  const formData = {
+    title: "Research",
+    date: "1 April",
+    venue: "Bangalore",
+    // organizer: userInfo.id,
+    organizer: userInfo?.id,
+  };
+
   async function create(ev) {
     ev.preventDefault();
     console.log("create function triggered");

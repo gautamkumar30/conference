@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import ConferenceCard from "../components/widgets/ConferenceCard";
 import { UserContext } from "../contexts/UserContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -29,7 +30,12 @@ const Home = () => {
 
       <div className="flex flex-row justify-between">
         <h3 className="text-subheading">Registered Conferences</h3>
-        <p className="text-secondary font-semibold text-[16px]">VIEW ALL</p>
+        <Link
+          to={"/conference/registered"}
+          className="text-secondary font-semibold text-[16px]"
+        >
+          VIEW ALL
+        </Link>
       </div>
       <ConferenceCard />
       <ConferenceCard />

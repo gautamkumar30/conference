@@ -3,6 +3,7 @@ import { routes } from "../../utils/navigation.jsx";
 import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext.jsx";
+import { LogOut } from "lucide-react";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -51,7 +52,20 @@ const Sidebar = () => {
               </p>
             </Link>
           ))}
-          <button onClick={logout}>Log out</button>
+          <button
+            onClick={logout}
+            // className="text-primary font-semibold opacity-60 text-[15px] text-center group-hover:opacity-100"
+            className="flex flex-row gap-4 group"
+          >
+            <div className={`opacity-60 group-hover:opacity-100`}>
+              <LogOut strokeWidth={1.8} color={"#233169"} />
+            </div>
+            <p
+              className={`text-primary font-semibold opacity-60 text-[15px] text-center group-hover:opacity-100`}
+            >
+              {"Log Out".toUpperCase()}
+            </p>
+          </button>
         </div>
       </div>
     </aside>
