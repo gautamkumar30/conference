@@ -98,6 +98,19 @@ app.get("/conference", async (req, res) => {
   }
 });
 
+app.get("/conference/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const conferenceDoc = await Conference.findById(id).populate("organizer", [
+      "username",
+    ]);
+
+    res.status(200).json(conferenceDoc);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 app.get("/get-jeo-data", (req, res) => {
   res.status(200).json({ name: "Jeo", age: "20", gender: "male" });
 });

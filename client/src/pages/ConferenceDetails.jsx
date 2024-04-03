@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 const PaperCard = () => {
   return (
     <div className="flex flex-row justify-between">
@@ -19,17 +24,43 @@ const PaperCard = () => {
   );
 };
 
+const templateData = {
+  id: "Couldn't fetch id",
+  title: "Couldn't fetch title",
+  organizer: "Couldn't fetch title",
+  theme: "Couldn't fetch title",
+  date: "Couldn't fetch title",
+  venue: "Couldn't fetch title",
+  description: "Couldn't fetch description",
+};
+
 const ConferenceDetails = () => {
+  const { id } = useParams();
+  // console.log(id);
+
+  const [conferenceDoc, setConferenceDoc] = useState(templateData);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/conference/" + id).then((res) => {
+      res.json().then((res) => {
+        // console.log(res);
+        setConferenceDoc(res);
+      });
+    });
+  }, []);
+
   return (
     <div className="page-wrapper">
       <div className="bg-secondary w-full h-[200px] rounded-t-3xl"></div>
       <div className="flex flex-col gap-3">
         <p className="text-primary font-medium text-[18px] opacity-60">
-          BLOCKCHAIN
+          {conferenceDoc.theme || templateData.theme}
         </p>
-        <h1 className="text-heading">Conference Title</h1>
+        <h1 className="text-heading">
+          {conferenceDoc.title || templateData.title}
+        </h1>
         <p className="text-primary font-semibold text-[18px] opacity-60">
-          World Trade Center
+          {conferenceDoc.organizer?.username || templateData.organizer}
         </p>
       </div>
       <div className="flex flex-col gap-2">
@@ -37,19 +68,19 @@ const ConferenceDetails = () => {
           <span className="text-primary font-bold text-[18px] opacity-90">
             Location:{" "}
           </span>
-          Chennai, India
+          {conferenceDoc.venue || templateData.venue}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
           <span className="text-primary font-bold text-[18px] opacity-90">
             Date:{" "}
           </span>
-          10, April
+          {conferenceDoc.date || templateData.date}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
           <span className="text-primary font-bold text-[18px] opacity-90">
             Description:{" "}
           </span>
-          The extend of which goes beyond
+          {conferenceDoc.description || templateData.description}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
           <span className="text-primary font-bold text-[18px] opacity-90">
