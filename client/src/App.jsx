@@ -34,6 +34,7 @@ function App() {
               <Route path="/conference" element={<ConferenceDetails />} />
               <Route path="/submittedpapers" element={<SubmittedPapers />} />
               <Route path="/invitations" element={<Invitation />} />
+              <Route path="/signup" element={<Signup />} />
             </Route>
           </Routes>
         </main>
