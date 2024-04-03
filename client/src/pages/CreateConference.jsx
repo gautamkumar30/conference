@@ -54,6 +54,7 @@ const CreateConference = () => {
 
   const { userInfo, setUserInfo } = useContext(UserContext);
 
+  // eslint-disable-next-line no-unused-vars
   const formData = {
     title: "Research",
     date: "1 April",

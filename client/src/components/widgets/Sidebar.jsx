@@ -47,7 +47,7 @@ const Sidebar = () => {
                 className={`text-primary font-semibold opacity-60 text-[15px] text-center group-hover:opacity-100 ${
                   pathname === route.route && `opacity-100`
                 } `}
-              >
+              >                
                 {route.label.toUpperCase()}
               </p>
             </Link>
