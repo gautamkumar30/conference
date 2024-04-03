@@ -14,7 +14,9 @@ const PaperCard = () => {
       </div>
       <div className="flex flex-col gap-0 items-end justify-center">
         <p className="text-[25px] font-semibold text-primary leading-0">4.5</p>
-        <button className="text-secondary text-[16px] font-semibold">RATE NOW</button>
+        <button className="text-secondary text-[16px] font-semibold">
+          RATE NOW
+        </button>
       </div>
     </div>
   );

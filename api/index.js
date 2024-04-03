@@ -76,7 +76,10 @@ app.get("/profile", (req, res) => {
 
   jwt.verify(token, secret, {}, (err, info) => {
     // if (err) throw err;
-    if (err) res.json("Error occured");
+    if (err) {
+      console.error(err);
+      return res.status(401).json({ message: "Unauthorized" });
+    }
     res.json(info);
   });
 });
@@ -85,13 +88,11 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("OK");
 });
 
-app.post("/create-conference", async (req, res) => {
+app.get("/conference", async (req, res) => {
   try {
-    console.log(req.body);
+    const conferenceDocs = await Conference.find().populate("organizer");
 
-    const conferenceDoc = await Conference.create(req.body);
-
-    res.status(201).json(conferenceDoc);
+    res.status(200).json(conferenceDocs);
   } catch (error) {
     res.status(400).send(error.message);
   }

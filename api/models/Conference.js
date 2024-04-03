@@ -22,6 +22,7 @@ const ConferenceSchema = mongoose.Schema(
     },
     organizer: {
       type: Schema.Types.ObjectId,
+      ref: "User",
       required: false,
     },
     registrationAmount: {

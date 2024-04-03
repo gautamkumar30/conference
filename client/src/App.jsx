@@ -27,14 +27,15 @@ function App() {
             {/* Protected Routes */}
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="/create-conference" element={<CreateConference />} />
-              <Route path="/conference" element={<ConferenceDetails />} />
-              <Route path="/conference/:id/papers" element={<SubmittedPapers />} />
-              <Route path="/invitations" element={<Invitation />} />
-              <Route path="/conference/:id" element={<ConferenceDetails />} />
+              <Route path="/conference/create" element={<CreateConference />} />
               <Route path="/conference/registered" element={<Registered />} />
               <Route path="/conference/organized" element={<Organized />} />
-              {/* <Route path="/" element={< />} /> */}
+              <Route path="/conference/:id" element={<ConferenceDetails />} />
+              <Route
+                path="/conference/:id/papers"
+                element={<SubmittedPapers />}
+              />
+              <Route path="/invitations" element={<Invitation />} />
             </Route>
           </Routes>
         </main>
