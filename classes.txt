@@ -2,18 +2,20 @@
 
 # Classes
 
-- **User**
-    - Attributes: _id, Name, University/Organization, Email
+- User
+    - Attributes: Username, Email, University/Organization
     - Methods: RegisterForConference()
-- **Conference**
-    - Attributes: Title, Date, Venue, Description, PostedDate, Organizers, RegistrationAmount, Theme, Chairpersons, Speakers (optional), Papers
+- Conference
+    - Attributes: Title, Date, Venue, Description, Organizer, RegistrationAmount, Theme, Chairpersons(optional)
         - Methods: UpdateDetails(), CancelConference(), InviteChairpersons()
-- **Attendee**
-    - Attributes: UserId, ConferenceId, DateRegistered (metadata), PaperId
+- Attendee
+    - Attributes: UserId, ConferenceId
     - Methods: CancelRegistration(), UpdateDetails(), SubmitPaper()
-- **Paper:**
-    - Attributes: AuthorId, Title, PaperLink, TotalRating, Ratings (array with chairpersonId-rating pairs)
+- Paper
+    - Attributes: AuthorId, Title, PaperLink, TotalRating, Ratings (array with chairpersonId:rating pairs)
     - Methods: UpdateDetails()
-- **Invitations:**
-    - Attributes: SenderId, ReceiverId, Role, Timestamp (metadata), status
+- Invitations
+    - Attributes: SenderId, ReceiverId, Role, Status
     - Methods: SendNotification(), ReceiveNotification(), AcceptRole(), RejectRole()
+- Chairperson
+    - Attributes - UserId, ConferenceId

@@ -39,7 +39,7 @@ const formList = [
   { id: "theme", label: "Theme", placeholder: "Eg. Blockchain" },
 ];
 
-const Organize = () => {
+const CreateConference = () => {
   const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:4000/profile", { credentials: "include" }).then(
@@ -99,7 +99,9 @@ const Organize = () => {
     <div className="page-wrapper">
       {/* <h1 className="text-heading">Organize a Conference</h1> */}
       {/* For dev purposes */}
-      <h1 className="text-heading">O</h1>
+      <h1 className="text-heading">
+        Organize
+      </h1>
       {/* For dev purposes */}
       <p>{userInfo?.username}</p>
       <form onSubmit={create}>
@@ -124,4 +126,4 @@ const Organize = () => {
   );
 };
 
-export default Organize;
+export default CreateConference;  
