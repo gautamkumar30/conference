@@ -1,7 +1,7 @@
 import { Home } from "lucide-react";
-import { BadgePlus } from "lucide-react";
-import { Search } from "lucide-react";
-import { UserRound } from "lucide-react";
+import { UserRoundCogIcon } from "lucide-react";
+import { MailPlus } from "lucide-react";
+import { SquarePen } from "lucide-react";
 import { CalendarCheck2 } from "lucide-react";
 
 const strokeWidth = 1.8;
@@ -14,30 +14,27 @@ export const routes = [
     component: <Home strokeWidth={strokeWidth} color={primaryColor} />,
   },
   {
-    label: "Organize",
-    route: "/organize",
-    component: <BadgePlus strokeWidth={strokeWidth} color={primaryColor} />,
-  },
-  {
-    label: "Organized",
-    route: "/organized",
-    component: <BadgePlus strokeWidth={strokeWidth} color={primaryColor} />,
+    label: "Create",
+    route: "/conference/create",
+    component: <SquarePen strokeWidth={strokeWidth} color={primaryColor} />,
   },
   {
     label: "Registered",
-    route: "/registered",
+    route: "/conference/registered",
     component: (
       <CalendarCheck2 strokeWidth={strokeWidth} color={primaryColor} />
     ),
   },
   {
-    label: "Explore",
-    route: "/explore",
-    component: <Search strokeWidth={strokeWidth} color={primaryColor} />,
+    label: "Organized",
+    route: "/conference/organized",
+    component: (
+      <UserRoundCogIcon strokeWidth={strokeWidth} color={primaryColor} />
+    ),
   },
   {
-    label: "Profile",
-    route: "/profile",
-    component: <UserRound strokeWidth={strokeWidth} color={primaryColor} />,
+    label: "Invitations",
+    route: "/invitations",
+    component: <MailPlus strokeWidth={strokeWidth} color={primaryColor} />,
   },
 ];

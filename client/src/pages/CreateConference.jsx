@@ -99,9 +99,7 @@ const CreateConference = () => {
     <div className="page-wrapper">
       {/* <h1 className="text-heading">Organize a Conference</h1> */}
       {/* For dev purposes */}
-      <h1 className="text-heading">
-        Organize
-      </h1>
+      <h1 className="text-heading">Create</h1>
       {/* For dev purposes */}
       <p>{userInfo?.username}</p>
       <form onSubmit={create}>
@@ -126,4 +124,4 @@ const CreateConference = () => {
   );
 };
 
-export default CreateConference;  
+export default CreateConference;
