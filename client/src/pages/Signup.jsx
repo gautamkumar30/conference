@@ -6,6 +6,8 @@ const Signup = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [univ_org, setUniv_org] = useState("");
 
   async function register(ev) {
     ev.preventDefault();
@@ -23,37 +25,57 @@ const Signup = () => {
     }
   }
 
+  const inputStyle = "border-2 p-3";
+
   return (
-    <div className="flex flex-col justify-center item-center">
-      <div className="flex flex-col gap-8 w-full h-full bg-secondary">
-        <h1 className="text-heading">Signup</h1>
-        <form onSubmit={register}>
-          <div className="flex flex-col gap-8">
-            <p>
-              <input
-                label="Username"
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                id="username"
-              />
-            </p>
-            <p>
-              <input
-                label="Password"
-                type="text"
-                placeholder="Password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                id="password"
-              />
-            </p>
-            <button type="submit">Signup</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <main className="w-screen h-screen flex  flex-col gap-10 justify-center items-center">
+      <h1 className="text-subheading">Create a new account</h1>
+      <form className="bg-white p-10 shadow-lg rounded-3xl text-primary font-medium flex flex-col gap-4 w-full max-w-[500px]">
+        <div className="flex flex-col gap-3">
+          <label>Username</label>
+          <input
+            type="text"
+            className={inputStyle}
+            placeholder="Enter username"
+            value={username}
+            onChange={(ev) => setUsername(ev.target.value)}
+          />
+        </div>
+        <div className="flex flex-col gap-3">
+          <label>Email</label>
+          <input
+            type="text"
+            className={inputStyle}
+            placeholder="Enter email"
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+          />
+        </div>
+        <div className="flex flex-col gap-3">
+          <label>Password</label>
+          <input
+            type="text"
+            className={inputStyle}
+            placeholder="Enter password"
+            value={password}
+            onChange={(ev) => setPassword(ev.target.value)}
+          />
+        </div>
+        <div className="flex flex-col gap-3">
+          <label>University / Organization</label>
+          <input
+            type="text"
+            className={inputStyle}
+            placeholder="Enter university / organization name"
+            value={univ_org}
+            onChange={(ev) => setUniv_org(ev.target.value)}
+          />
+        </div>
+        <button className="button-cta mt-3" type="submit">
+          Create
+        </button>
+      </form>
+    </main>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -52,7 +52,7 @@ const CreateConference = () => {
   //   );
   // }, []);
 
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { userInfo } = useContext(UserContext);
 
   // eslint-disable-next-line no-unused-vars
   const formData = {
