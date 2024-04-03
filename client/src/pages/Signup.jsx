@@ -24,8 +24,8 @@ const Signup = () => {
   }
 
   return (
-    <div>
-      <h1>Signup</h1>
+    <div className="page-wrapper">
+      <h1 className="text-subheading">Signup</h1>
       <form onSubmit={register}>
         <input
           type="text"

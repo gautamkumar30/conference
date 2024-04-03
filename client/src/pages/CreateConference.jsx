@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 const FormChild = ({ id, label, placeholder }) => {
   return (
     <div className="flex flex-col gap-4" id={id}>
@@ -53,14 +54,6 @@ const CreateConference = () => {
 
   const { userInfo, setUserInfo } = useContext(UserContext);
 
-  const formData = {
-    title: "Research",
-    date: "1 April",
-    venue: "Bangalore",
-    // organizer: userInfo.id,
-    organizer: userInfo?.id,
-  };
-
   async function create(ev) {
     ev.preventDefault();
     console.log("create function triggered");
@@ -99,9 +92,7 @@ const CreateConference = () => {
     <div className="page-wrapper">
       {/* <h1 className="text-heading">Organize a Conference</h1> */}
       {/* For dev purposes */}
-      <h1 className="text-heading">
-        Organize
-      </h1>
+      <h1 className="text-heading">Organize</h1>
       {/* For dev purposes */}
       <p>{userInfo?.username}</p>
       <form onSubmit={create}>
@@ -126,4 +117,4 @@ const CreateConference = () => {
   );
 };
 
-export default CreateConference;  
+export default CreateConference;
