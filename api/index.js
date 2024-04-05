@@ -184,6 +184,20 @@ app.post("/conference/:conferenceId/submit-paper", async (req, res) => {
   }
 });
 
+app.get("/conference/:conferenceId/papers", async (req, res) => {
+  try {
+    const { conferenceId } = req.params;
+    const paperDocs = await Paper.find({ conferenceId: conferenceId }).populate(
+      "userId",
+      ["username"]
+    );
+    console.log(paperDocs);
+    res.status(200).json(paperDocs);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 app.get("/get-jeo-data", (req, res) => {
   res.status(200).json({ name: "Jeo", age: "20", gender: "male" });
 });
