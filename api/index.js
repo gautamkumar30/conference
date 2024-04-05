@@ -201,33 +201,66 @@ app.get("/conference/:conferenceId/papers", async (req, res) => {
 app.put("/papers/:paperId/update-rating", async (req, res) => {
   try {
     const { paperId } = req.params;
+
     const { userRating } = req.body;
 
+    // const userRating = 3;
+
     const paperDoc = await Paper.findById(paperId);
+
+    // res.status(200).json({
+    //   totalRating: paperDoc.totalRating,
+    //   totalRaters: paperDoc.totalRaters,
+    // });
+
+    // const newRating =
+    //   (paperDoc.totalRating * paperDoc.totalRaters + userRating) /
+    //   (paperDoc.totalRaters + 1);
+
+    // paperDoc.totalRating = 2;
+    // paperDoc.totalRaters = 1;
 
     const newRating =
       (paperDoc.totalRating * paperDoc.totalRaters + userRating) /
       (paperDoc.totalRaters + 1);
 
-    // const updatedPaperDoc = await Paper.updateOne(
-    //   {
-    //     _id: paperId,
-    //   },
-    //   [
-    //     {
-    //       $set: {
-    //         totalRating: newRating,
-    //       },
-    //     },
-    //     {
-    //       $set: {
-    //         totalRaters: paperDoc.totalRaters + 1,
-    //       },
-    //     },
-    //   ]
-    // );
+    console.log(newRating);
 
-    res.status(200).json({ newRating: newRating });
+    // res.status(200).json({
+    //   newRating: newRating,
+    // });
+
+    const updatedPaperDoc = await Paper.updateOne(
+      {
+        _id: paperId,
+      },
+      [
+        {
+          $set: {
+            totalRating: newRating,
+          },
+        },
+        {
+          $set: {
+            totalRaters: paperDoc.totalRaters + 1,
+          },
+        },
+      ]
+    );
+
+    res.status(200).json(updatedPaperDoc);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+app.get("/conference/organized", async (req, res) => {
+  try {
+    const conferenceDocs = await Conference.find({
+      organizer: "66083be6a678cb9bd3d828bc",
+    }).populate("organizer", ["username"]);
+
+    res.status(200).json(conferenceDocs);
   } catch (error) {
     res.status(400).send(error.message);
   }

@@ -8,22 +8,21 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useState } from "react";
-import { ScrollText } from "lucide-react";
 import { StickyNote } from "lucide-react";
+import { parse } from "postcss";
 
 const PaperCard = ({ paper }) => {
   const [userRating, setUserRating] = useState(0);
 
   async function submitRating() {
-    console.log(
-      await fetch(
-        "http://localhost:4000/papers/" + paper._id + "/update-rating",
-        {
-          method: "PUT",
-          body: JSON.stringify({ userRating: userRating }),
-          headers: { "Content-Type": "application/json" },
-        }
-      )
+    console.log(typeof userRating);
+    await fetch(
+      "http://localhost:4000/papers/" + paper._id + "/update-rating",
+      {
+        method: "PUT",
+        body: JSON.stringify({ userRating: parseFloat(userRating) }),
+        headers: { "Content-Type": "application/json" },
+      }
     );
   }
   return (
