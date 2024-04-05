@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,8 +19,12 @@ const Signup = () => {
     });
 
     if (response.status === 200) {
-      console.log("Registration successfull");
-      navigate("/login");
+      alert("Registration successfull");
+      toast.success("Account created successfully!");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } else {
       alert("Registration failed");
     }
@@ -30,7 +35,10 @@ const Signup = () => {
   return (
     <main className="w-screen h-screen flex  flex-col gap-10 justify-center items-center">
       <h1 className="text-subheading">Create a new account</h1>
-      <form className="bg-white p-10 shadow-lg rounded-3xl text-primary font-medium flex flex-col gap-4 w-full max-w-[500px]">
+      <form
+        className="bg-white p-10 shadow-lg rounded-3xl text-primary font-medium flex flex-col gap-4 w-full max-w-[500px]"
+        onSubmit={register}
+      >
         <div className="flex flex-col gap-3">
           <label>Username</label>
           <input
@@ -75,6 +83,7 @@ const Signup = () => {
           Create
         </button>
       </form>
+      <Toaster />
     </main>
   );
 };

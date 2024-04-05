@@ -1,6 +1,9 @@
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 const FormChild = ({ id, label, placeholder }) => {
@@ -42,17 +45,18 @@ const formList = [
 
 const CreateConference = () => {
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/profile", { credentials: "include" }).then(
-  //     (response) => {
-  //       response.json().then((userInfo) => {
-  //         setUserInfo(userInfo);
-  //       });
-  //     }
-  //   );
-  // }, []);
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const [isCreateDisabled, setIsCreateDisabled] = useState(false);
 
-  const { userInfo } = useContext(UserContext);
+  useEffect(() => {
+    fetch("http://localhost:4000/profile", { credentials: "include" }).then(
+      (response) => {
+        response.json().then((userInfo) => {
+          setUserInfo(userInfo);
+        });
+      }
+    );
+  }, []);
 
   // eslint-disable-next-line no-unused-vars
   const formData = {
@@ -65,6 +69,7 @@ const CreateConference = () => {
 
   async function create(ev) {
     ev.preventDefault();
+    setIsCreateDisabled(true);
     console.log("create function triggered");
 
     const form = ev.target;
@@ -81,7 +86,7 @@ const CreateConference = () => {
 
     console.log(formData);
 
-    const response = await fetch("http://localhost:4000/create-conference", {
+    const response = await fetch("http://localhost:4000/conference/create", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
@@ -92,9 +97,14 @@ const CreateConference = () => {
       console.log("This is response data");
       console.log(responseData);
 
-      alert("Conference created successfully!");
-      navigate("/");
-      // return <Navigate to="/" />;
+      // alert("Conference created successfully!");
+      toast.success("Conference created successfully!");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } else {
+      toast.error("Unable to create the conference");
     }
   }
   return (
@@ -118,10 +128,15 @@ const CreateConference = () => {
             Create
           </button> */}
         </div>
-        <button type="submit" className="button-cta mt-14">
-          Create
+        <button
+          type="submit"
+          className="button-cta mt-14"
+          disabled={isCreateDisabled}
+        >
+          {isCreateDisabled ? "Creating" : "Create"}
         </button>
       </form>
+      <Toaster />
     </div>
   );
 };

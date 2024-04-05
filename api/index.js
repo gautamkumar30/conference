@@ -100,6 +100,26 @@ app.get("/conference", async (req, res) => {
   }
 });
 
+app.post("/conference/create", async (req, res) => {
+  try {
+    const formData = req.body;
+
+    const conferenceDoc = await Conference.create({
+      title: formData.title,
+      date: formData.date,
+      venue: formData.date,
+      registrationAmount: formData.registrationAmount,
+      description: formData.description,
+      theme: formData.theme,
+      organizer: formData.organizer,
+    });
+
+    res.status(200).json(conferenceDoc);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 app.get("/conference/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -201,34 +221,15 @@ app.get("/conference/:conferenceId/papers", async (req, res) => {
 app.put("/papers/:paperId/update-rating", async (req, res) => {
   try {
     const { paperId } = req.params;
-
     const { userRating } = req.body;
 
-    // const userRating = 3;
-
     const paperDoc = await Paper.findById(paperId);
-
-    // res.status(200).json({
-    //   totalRating: paperDoc.totalRating,
-    //   totalRaters: paperDoc.totalRaters,
-    // });
-
-    // const newRating =
-    //   (paperDoc.totalRating * paperDoc.totalRaters + userRating) /
-    //   (paperDoc.totalRaters + 1);
-
-    // paperDoc.totalRating = 2;
-    // paperDoc.totalRaters = 1;
 
     const newRating =
       (paperDoc.totalRating * paperDoc.totalRaters + userRating) /
       (paperDoc.totalRaters + 1);
 
     console.log(newRating);
-
-    // res.status(200).json({
-    //   newRating: newRating,
-    // });
 
     const updatedPaperDoc = await Paper.updateOne(
       {
@@ -254,11 +255,28 @@ app.put("/papers/:paperId/update-rating", async (req, res) => {
   }
 });
 
-app.get("/conference/organized", async (req, res) => {
+app.post("/conference/organized", async (req, res) => {
   try {
+    const { userId } = req.body;
     const conferenceDocs = await Conference.find({
-      organizer: "66083be6a678cb9bd3d828bc",
+      // organizer: "66083be6a678cb9bd3d828bc",
+      organizer: userId,
     }).populate("organizer", ["username"]);
+
+    res.status(200).json(conferenceDocs);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+app.post("/user/registered", async (req, res) => {
+  try {
+    // const { userId } = req.params;
+    const { userId } = req.body;
+
+    const conferenceDocs = await Attendee.find({ userId: userId });
+
+    console.log(conferenceDocs);
 
     res.status(200).json(conferenceDocs);
   } catch (error) {

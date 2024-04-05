@@ -18,12 +18,23 @@ const Registered = () => {
       }
     );
 
-    fetch("http://localhost:4000/conference").then((response) => {
-      response.json().then((res) => setConferenceDocs(res));
+    console.log(userInfo?.id === undefined);
+    const userId = userInfo?.id ? userInfo?.id : "123";
+    console.log("inside");
+    fetch("http://localhost:4000/user/registered", {
+      method: "POST",
+      body: JSON.stringify({ userId: userInfo?.id }),
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
+      response.json().then((res) => {
+        setConferenceDocs(res);
+        console.log(conferenceDocs);
+      });
     });
-  }, []);
 
-  console.log(conferenceDocs);
+    // console.log("Docs");
+    // console.log(conferenceDocs);
+  }, []);
 
   return (
     <div className="page-wrapper">
