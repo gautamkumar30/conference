@@ -1,7 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../components/ui/dialog";
 
 const PaperCard = () => {
   return (
@@ -35,19 +45,98 @@ const templateData = {
 };
 
 const ConferenceDetails = () => {
-  const { id } = useParams();
+  const { id: conferenceId } = useParams();
   // console.log(id);
 
   const [conferenceDoc, setConferenceDoc] = useState(templateData);
 
+  const { userInfo, setUserInfo } = useContext(UserContext);
+
+  const [userRole, setUserRole] = useState("non-attendee");
+
+  const [paperTitle, setPaperTitle] = useState("");
+  const [paperLink, setPaperLink] = useState("");
+
   useEffect(() => {
-    fetch("http://localhost:4000/conference/" + id).then((res) => {
+    fetch("http://localhost:4000/profile", { credentials: "include" }).then(
+      (response) => {
+        response.json().then((userInfo) => {
+          setUserInfo(userInfo);
+        });
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/conference/" + conferenceId).then((res) => {
       res.json().then((res) => {
         // console.log(res);
         setConferenceDoc(res);
       });
     });
   }, []);
+
+  if (userInfo.username) {
+    // console.log(userInfo)
+    async function checkUserStatus() {
+      const res = await fetch(
+        "http://localhost:4000/conference/660a57a1a522443ad93abf98/check-user-status/" +
+          userInfo.id
+      );
+
+      const temp = await res.json();
+
+      console.log(temp.role);
+
+      setUserRole(temp.role);
+    }
+
+    checkUserStatus();
+  }
+
+  async function registerForConference() {
+    const attendeeDoc = await fetch(
+      "http://localhost:4000/conference/" +
+        conferenceId +
+        "/register-attendee/" +
+        userInfo?.id,
+      {
+        method: "POST",
+      }
+    );
+
+    const temp = await attendeeDoc.json();
+
+    console.log(temp);
+  }
+
+  async function submitPaper() {
+    const paperDoc = await fetch(
+      "http://localhost:4000/conference/" + conferenceId + "/submit-paper",
+      {
+        method: "POST",
+        body: JSON.stringify({ userId: userInfo?.id }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const temp = await paperDoc.json();
+
+    console.log(temp);
+  }
+
+  const ctaTypes = [
+    {
+      role: "non-attendee",
+      label: "Register",
+      function: registerForConference,
+    },
+    {
+      role: "attendee",
+      label: "Submit Paper",
+      function: registerForConference,
+    },
+  ];
 
   return (
     <div className="page-wrapper">
@@ -97,7 +186,59 @@ const ConferenceDetails = () => {
           <PaperCard />
           <PaperCard />
         </div>
-        <button className="button-cta max-w-[250px]">Submit Paper</button>
+
+        {userRole === "non-attendee" && (
+          <button
+            className="button-cta max-w-[250px]"
+            onClick={registerForConference}
+          >
+            Register
+          </button>
+        )}
+
+        {userRole === "attendee" && (
+          <Dialog>
+            <DialogTrigger className="button-cta max-w-[250px]">
+              Submit Paper
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Paper details</DialogTitle>
+                <DialogDescription>
+                  The title of the paper and the drive link to the paper can be
+                  provided
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <label className="text-right text-[16px] tracking-tight">
+                    Title
+                  </label>
+                  <input
+                    placeholder="Eg. Paper on Green Energy Sustainability"
+                    className="col-span-3 py-2 px-4 border-[0.7px] border-gray-400 rounded-lg"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <label className="text-right">Link</label>
+                  <input
+                    placeholder="Eg. https://drive.google.com/paper-on-green-energy-sustainability"
+                    className="col-span-3 py-2 px-4 border-[0.7px] border-gray-400 rounded-lg"
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <button
+                  className="text-white text-[14px] bg-primary py-2 px-4 rounded-lg"
+                  onClick={submitPaper}
+                >
+                  Submit Paper
+                </button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        )}
+        <p>{userInfo?.id}</p>
       </div>
     </div>
   );

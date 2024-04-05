@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import { User } from "./models/User.js";
 import { Conference } from "./models/Conference.js";
+import { Attendee } from "./models/Attendee.js";
+import { Paper } from "./models/Paper.js";
 
 const app = express();
 
@@ -106,6 +108,77 @@ app.get("/conference/:id", async (req, res) => {
     ]);
 
     res.status(200).json(conferenceDoc);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+app.post(
+  "/conference/:conferenceId/register-attendee/:userId",
+  async (req, res) => {
+    try {
+      const { conferenceId, userId } = req.params;
+
+      const attendeeDoc = await Attendee.create({
+        userId,
+        conferenceId,
+      });
+
+      res.status(201).json(attendeeDoc);
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  }
+);
+
+app.get(
+  "/conference/:conferenceId/check-user-status/:userId",
+  async (req, res) => {
+    try {
+      const { conferenceId, userId } = req.params;
+      const attendeeDoc = await Attendee.findOne({
+        userId: userId,
+        conferenceId: conferenceId,
+      });
+
+      if (attendeeDoc) {
+        res.status(200).json({
+          role: "attendee",
+          data: attendeeDoc,
+        });
+      } else {
+        res.status(204).json({
+          role: "non-attendee",
+          message: "Not a registered member",
+        });
+      }
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  }
+);
+
+app.post("/conference/:conferenceId/submit-paper", async (req, res) => {
+  try {
+    const { conferenceId } = req.params;
+    const { userId } = req.body;
+
+    console.log(req.body);
+
+    const paperDoc = await Paper.create({
+      userId,
+      conferenceId,
+      title: "Dummy paper",
+      paperLink: "https://github.com/gautamkumar30/conference",
+    });
+
+    if (paperDoc) {
+      res.status(201).json(paperDoc);
+    } else {
+      res.status(400).json({
+        message: "Paper not submitted",
+      });
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }

@@ -3,17 +3,26 @@
 import mongoose, { Schema } from "mongoose";
 
 const PaperSchema = mongoose.Schema({
-  authorId: {
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  conferenceId: {
     type: String,
+    required: true,
   },
   title: {
     type: String,
+    required: true,
   },
   paperLink: {
     type: String,
+    required: true,
   },
   totalRating: {
-    type: String,
+    type: Number,
+    default: 0,
   },
   Ratings: {
     type: String,
