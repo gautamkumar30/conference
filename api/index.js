@@ -198,6 +198,41 @@ app.get("/conference/:conferenceId/papers", async (req, res) => {
   }
 });
 
+app.put("/papers/:paperId/update-rating", async (req, res) => {
+  try {
+    const { paperId } = req.params;
+    const { userRating } = req.body;
+
+    const paperDoc = await Paper.findById(paperId);
+
+    const newRating =
+      (paperDoc.totalRating * paperDoc.totalRaters + userRating) /
+      (paperDoc.totalRaters + 1);
+
+    // const updatedPaperDoc = await Paper.updateOne(
+    //   {
+    //     _id: paperId,
+    //   },
+    //   [
+    //     {
+    //       $set: {
+    //         totalRating: newRating,
+    //       },
+    //     },
+    //     {
+    //       $set: {
+    //         totalRaters: paperDoc.totalRaters + 1,
+    //       },
+    //     },
+    //   ]
+    // );
+
+    res.status(200).json({ newRating: newRating });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 app.get("/get-jeo-data", (req, res) => {
   res.status(200).json({ name: "Jeo", age: "20", gender: "male" });
 });

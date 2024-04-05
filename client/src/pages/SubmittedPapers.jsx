@@ -12,6 +12,20 @@ import { ScrollText } from "lucide-react";
 import { StickyNote } from "lucide-react";
 
 const PaperCard = ({ paper }) => {
+  const [userRating, setUserRating] = useState(0);
+
+  async function submitRating() {
+    console.log(
+      await fetch(
+        "http://localhost:4000/papers/" + paper._id + "/update-rating",
+        {
+          method: "PUT",
+          body: JSON.stringify({ userRating: userRating }),
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    );
+  }
   return (
     <div className="flex flex-row justify-between">
       <div className="flex flex-row gap-7 justify-center items-center">
@@ -20,7 +34,8 @@ const PaperCard = ({ paper }) => {
         </div>
         <div>
           <p className="text-primary font-semibold text-[18px] tracking-tight">
-            {paper.title}
+            {paper._id}
+            {/* {paper.title} */}
           </p>
           <p className="text-primary font-medium text-[18px] mt-1 tracking-tight opacity-80">
             {paper.userId.username}
@@ -29,14 +44,23 @@ const PaperCard = ({ paper }) => {
       </div>
       <div className="flex flex-col gap-0 items-end justify-center">
         <p className="text-[25px] font-semibold text-primary leading-0">
-          {paper.totalRating}
+          {paper.totalRating.toFixed(1)}
+          <br />
+          {paper.totalRaters}
         </p>
         <Popover>
           <PopoverTrigger className="text-secondary text-[14px] font-semibold">
             RATE NOW
           </PopoverTrigger>
           <PopoverContent>
-            <div>some content</div>
+            <input
+              type="number"
+              min={0}
+              max={5}
+              value={userRating}
+              onChange={(ev) => setUserRating(ev.target.value)}
+            />
+            <button onClick={submitRating}>Rate</button>
           </PopoverContent>
         </Popover>
       </div>

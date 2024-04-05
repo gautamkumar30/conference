@@ -9,7 +9,8 @@ const PaperSchema = mongoose.Schema({
     required: true,
   },
   conferenceId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "Conference",
     required: true,
   },
   title: {
@@ -24,8 +25,9 @@ const PaperSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  Ratings: {
-    type: String,
+  totalRaters: {
+    type: Number,
+    default: 0,
   },
 });
 
