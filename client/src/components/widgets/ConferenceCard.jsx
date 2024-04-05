@@ -13,10 +13,10 @@ const ConferenceCard = ({ id, theme, title, organizer, venue, date }) => {
           <h3 className="text-subheading mb-8">
             {title ? title : "Conference Title"}
           </h3>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             {[organizer, venue, date].map((detail) => (
               <div className="flex flex-row gap-3 items-center" key={detail}>
-                <div className="w-[15px] h-[15px] bg-secondary opacity-70 rounded-full"></div>
+                <div className="w-[10px] h-[10px] bg-secondary opacity-70 rounded-full"></div>
                 <p className="text-primary opacity-90 ">{detail}</p>
               </div>
             ))}

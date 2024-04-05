@@ -24,7 +24,9 @@ const PaperCard = () => {
           RATE NOW
         </button> */}
         <Popover>
-          <PopoverTrigger>RATE NOW</PopoverTrigger>
+          <PopoverTrigger className="text-secondary text-[14px] font-semibold">
+            RATE NOW
+          </PopoverTrigger>
           <PopoverContent>
             <div>some content</div>
           </PopoverContent>

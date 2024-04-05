@@ -57,6 +57,8 @@ const ConferenceDetails = () => {
   const [paperTitle, setPaperTitle] = useState("");
   const [paperLink, setPaperLink] = useState("");
 
+  const [paperData, setPaperDoc] = useState(null);
+
   useEffect(() => {
     fetch("http://localhost:4000/profile", { credentials: "include" }).then(
       (response) => {
@@ -111,18 +113,17 @@ const ConferenceDetails = () => {
   }
 
   async function submitPaper() {
+    console.log({ userId: userInfo?.id, ...paperData });
     const paperDoc = await fetch(
       "http://localhost:4000/conference/" + conferenceId + "/submit-paper",
       {
         method: "POST",
-        body: JSON.stringify({ userId: userInfo?.id }),
+        body: JSON.stringify({ userId: userInfo?.id, ...paperData }),
         headers: { "Content-Type": "application/json" },
       }
     );
 
-    const temp = await paperDoc.json();
-
-    console.log(temp);
+    console.log(await paperDoc.json());
   }
 
   const ctaTypes = [
@@ -215,15 +216,23 @@ const ConferenceDetails = () => {
                     Title
                   </label>
                   <input
-                    placeholder="Eg. Paper on Green Energy Sustainability"
-                    className="col-span-3 py-2 px-4 border-[0.7px] border-gray-400 rounded-lg"
+                    placeholder="Eg. Green Energy Sustainability"
+                    className="text-[14px] col-span-3 py-2 px-4 border-[0.7px] border-gray-400 rounded-lg"
+                    value={paperData?.title}
+                    onChange={(ev) => {
+                      setPaperDoc({ ...paperData, title: ev.target.value });
+                    }}
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <label className="text-right">Link</label>
                   <input
-                    placeholder="Eg. https://drive.google.com/paper-on-green-energy-sustainability"
-                    className="col-span-3 py-2 px-4 border-[0.7px] border-gray-400 rounded-lg"
+                    placeholder="Eg. https://drive.google.com/paper"
+                    className="text-[14px] col-span-3 py-2 px-4 border-[0.7px] border-gray-400 rounded-lg"
+                    value={paperData?.link}
+                    onChange={(ev) => {
+                      setPaperDoc({ ...paperData, link: ev.target.value });
+                    }}
                   />
                 </div>
               </div>

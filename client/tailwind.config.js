@@ -40,7 +40,7 @@ export default {
         montserrat: ["Montserrat"],
       },
       spacing: {
-        maxwidth: "1100px",
+        maxwidth: "1000px",
       },
     },
   },

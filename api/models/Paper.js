@@ -16,7 +16,7 @@ const PaperSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  paperLink: {
+  link: {
     type: String,
     required: true,
   },

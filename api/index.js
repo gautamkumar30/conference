@@ -161,15 +161,15 @@ app.get(
 app.post("/conference/:conferenceId/submit-paper", async (req, res) => {
   try {
     const { conferenceId } = req.params;
-    const { userId } = req.body;
+    const { userId, title, link } = req.body;
 
     console.log(req.body);
 
     const paperDoc = await Paper.create({
       userId,
       conferenceId,
-      title: "Dummy paper",
-      paperLink: "https://github.com/gautamkumar30/conference",
+      title,
+      link,
     });
 
     if (paperDoc) {
