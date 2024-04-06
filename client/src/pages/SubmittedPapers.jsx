@@ -8,22 +8,37 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useState } from "react";
-import { ScrollText } from "lucide-react";
 import { StickyNote } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 const PaperCard = ({ paper }) => {
-  const [userRating, setUserRating] = useState(0);
+  const [userRating, setUserRating] = useState(null);
 
   async function submitRating() {
-    console.log(
-      await fetch(
-        "http://localhost:4000/papers/" + paper._id + "/update-rating",
-        {
-          method: "PUT",
-          body: JSON.stringify({ userRating: userRating }),
-          headers: { "Content-Type": "application/json" },
-        }
-      )
+    console.log(typeof userRating);
+    const response = fetch(
+      "http://localhost:4000/papers/" + paper._id + "/update-rating",
+      {
+        method: "PUT",
+        body: JSON.stringify({ userRating: parseFloat(userRating) }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const myPromise = response;
+
+    toast.promise(
+      myPromise,
+      {
+        loading: "Recording response",
+        success: "Response saved!",
+        error: "An error occured",
+      },
+      {
+        style: {
+          minWidth: "250px",
+        },
+      }
     );
   }
   return (
@@ -55,12 +70,14 @@ const PaperCard = ({ paper }) => {
           <PopoverContent>
             <input
               type="number"
-              min={0}
-              max={5}
+              className="w-full text-[14px] py-2 px-4 border-[0.7px] border-gray-400 rounded-lg"
+              placeholder="Your rating out of 5"
               value={userRating}
               onChange={(ev) => setUserRating(ev.target.value)}
             />
-            <button onClick={submitRating}>Rate</button>
+            <button className="button-cta mt-4 w-full" onClick={submitRating}>
+              Rate
+            </button>
           </PopoverContent>
         </Popover>
       </div>
@@ -101,8 +118,10 @@ const SubmittedPapers = () => {
       <div className="flex flex-col gap-10">
         <h1 className="text-heading">Submitted Papers</h1>
         <p>{userInfo?.id}</p>
-        {paperDocs && paperDocs.map((paper) => <PaperCard paper={paper} />)}
+        {paperDocs &&
+          paperDocs.map((paper) => <PaperCard key={paper._id} paper={paper} />)}
       </div>
+      <Toaster />
     </div>
   );
 };

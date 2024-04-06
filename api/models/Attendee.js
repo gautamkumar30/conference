@@ -2,15 +2,18 @@
 
 import mongoose, { Mongoose, Schema } from "mongoose";
 
-const AttendeeSchema = Schema({
+const AttendeeSchema = Schema(
+  {
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     conferenceId: {
-        type: Schema.Types.ObjectId,
-        ref: "Conference",
-    }
-},{timestamps: true})
+      type: Schema.Types.ObjectId,
+      ref: "Conference",
+    },
+  },
+  { timestamps: true }
+);
 
-export const Attendee = mongoose.model("Attendee", AttendeeSchema)
+export const Attendee = mongoose.model("Attendee", AttendeeSchema);

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { toTitleCase } from "../../utils/toTitleCase";
 
 // eslint-disable-next-line react/prop-types
 const ConferenceCard = ({ id, theme, title, organizer, venue, date }) => {
@@ -11,7 +12,7 @@ const ConferenceCard = ({ id, theme, title, organizer, venue, date }) => {
             {theme ? theme : "BLOCKCHAIN"}
           </p>
           <h3 className="text-subheading mb-8">
-            {title ? title : "Conference Title"}
+            {title ? toTitleCase(title) : "Conference Title"}
           </h3>
           <div className="flex flex-col gap-4">
             {[organizer, venue, date].map((detail) => (

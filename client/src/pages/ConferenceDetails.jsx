@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import {
   Dialog,
@@ -12,6 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../components/ui/dialog";
+import { toTitleCase } from "../utils/toTitleCase";
+import toast, { Toaster } from "react-hot-toast";
 
 const PaperCard = () => {
   return (
@@ -37,10 +38,10 @@ const PaperCard = () => {
 const templateData = {
   id: "Couldn't fetch id",
   title: "Couldn't fetch title",
-  organizer: "Couldn't fetch title",
-  theme: "Couldn't fetch title",
-  date: "Couldn't fetch title",
-  venue: "Couldn't fetch title",
+  organizer: "Couldn't fetch organizer",
+  theme: "Couldn't fetch theme",
+  date: "Couldn't fetch date",
+  venue: "Couldn't fetch venue",
   description: "Couldn't fetch description",
 };
 
@@ -53,9 +54,6 @@ const ConferenceDetails = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
 
   const [userRole, setUserRole] = useState("non-attendee");
-
-  const [paperTitle, setPaperTitle] = useState("");
-  const [paperLink, setPaperLink] = useState("");
 
   const [paperData, setPaperDoc] = useState(null);
 
@@ -78,20 +76,23 @@ const ConferenceDetails = () => {
     });
   }, []);
 
+  async function checkUserStatus() {
+    const res = await fetch(
+      "http://localhost:4000/conference/" +
+        conferenceId +
+        "/check-user-status/" +
+        userInfo.id
+    );
+
+    const temp = await res.json();
+
+    console.log(temp.role);
+
+    setUserRole(temp.role);
+  }
+
   if (userInfo.username) {
     // console.log(userInfo)
-    async function checkUserStatus() {
-      const res = await fetch(
-        "http://localhost:4000/conference/660a57a1a522443ad93abf98/check-user-status/" +
-          userInfo.id
-      );
-
-      const temp = await res.json();
-
-      console.log(temp.role);
-
-      setUserRole(temp.role);
-    }
 
     checkUserStatus();
   }
@@ -104,6 +105,8 @@ const ConferenceDetails = () => {
         userInfo?.id,
       {
         method: "POST",
+        // body: JSON.stringify({ userId: userInfo?.id }),
+        // headers: { "Content-Type": "application/json" },
       }
     );
 
@@ -113,8 +116,8 @@ const ConferenceDetails = () => {
   }
 
   async function submitPaper() {
-    console.log({ userId: userInfo?.id, ...paperData });
-    const paperDoc = await fetch(
+    // console.log({ userId: userInfo?.id, ...paperData });
+    const response = await fetch(
       "http://localhost:4000/conference/" + conferenceId + "/submit-paper",
       {
         method: "POST",
@@ -123,33 +126,27 @@ const ConferenceDetails = () => {
       }
     );
 
-    console.log(await paperDoc.json());
+    if (response.status === 201) {
+      console.log(await response.json());
+      toast.success("Paper submitted successfully!");
+    }
   }
-
-  const ctaTypes = [
-    {
-      role: "non-attendee",
-      label: "Register",
-      function: registerForConference,
-    },
-    {
-      role: "attendee",
-      label: "Submit Paper",
-      function: registerForConference,
-    },
-  ];
 
   return (
     <div className="page-wrapper">
       <div className="bg-secondary w-full h-[200px] rounded-t-3xl"></div>
-      <div className="flex flex-col gap-3">
-        <p className="text-primary font-medium text-[18px] opacity-60">
-          {conferenceDoc.theme || templateData.theme}
+      <div className="flex flex-col gap-1">
+        <p className="text-primary font-medium text-[16px] opacity-60">
+          {conferenceDoc.theme
+            ? conferenceDoc.theme.toUpperCase()
+            : templateData.theme.toUpperCase()}
         </p>
         <h1 className="text-heading">
-          {conferenceDoc.title || templateData.title}
+          {/* {conferenceDoc.title || templateData.title}
+           */}
+          {toTitleCase(conferenceDoc?.title) || toTitleCase(templateData.title)}
         </h1>
-        <p className="text-primary font-semibold text-[18px] opacity-60">
+        <p className="text-primary font-semibold text-[20px] opacity-60">
           {conferenceDoc.organizer?.username || templateData.organizer}
         </p>
       </div>
@@ -249,6 +246,7 @@ const ConferenceDetails = () => {
         )}
         <p>{userInfo?.id}</p>
       </div>
+      <Toaster />
     </div>
   );
 };
