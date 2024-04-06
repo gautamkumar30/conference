@@ -205,6 +205,8 @@ app.put("/papers/:paperId/update-rating", async (req, res) => {
 
     const paperDoc = await Paper.findById(paperId);
 
+    console.log(paperDoc);
+
     const newRating =
       (paperDoc.totalRating * paperDoc.totalRaters + userRating) /
       (paperDoc.totalRaters + 1);
