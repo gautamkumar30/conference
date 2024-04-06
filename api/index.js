@@ -197,7 +197,7 @@ app.get(
             message: "Not a registered member",
           };
           console.log(tempMsg);
-          res.status(204).json(tempMsg);
+          res.status(200).json(tempMsg);
         }
       }
     } catch (error) {

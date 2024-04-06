@@ -33,7 +33,9 @@ const Registered = () => {
   return (
     <div className="page-wrapper">
       <h1>Registered</h1>
-      <p>Current User: {userInfo.id}</p>
+      <p>
+        Current User: {userInfo.id} || {userInfo.username}
+      </p>
       {conferenceDocs &&
         conferenceDocs.map((conference, index) => {
           return (

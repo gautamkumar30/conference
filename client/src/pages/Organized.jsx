@@ -13,19 +13,19 @@ const Organized = () => {
       (response) => {
         response.json().then((userInfo) => {
           setUserInfo(userInfo);
+          console.log(userInfo);
+          fetch("http://localhost:4000/conference/organized", {
+            method: "POST",
+            body: JSON.stringify({ userId: userInfo?.id }),
+            headers: { "Content-Type": "application/json" },
+          }).then((response) => {
+            response.json().then((res) => {
+              setConferenceDocs(res);
+            });
+          });
         });
       }
     );
-
-    fetch("http://localhost:4000/conference/organized", {
-      method: "POST",
-      body: JSON.stringify({ userId: userInfo?.id }),
-      headers: { "Content-Type": "application/json" },
-    }).then((response) => {
-      response.json().then((res) => {
-        setConferenceDocs(res);
-      });
-    });
   }, []);
 
   console.log(conferenceDocs);

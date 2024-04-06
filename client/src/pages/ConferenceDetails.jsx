@@ -263,7 +263,9 @@ const ConferenceDetails = () => {
             </DialogContent>
           </Dialog>
         )}
-        <p>{userInfo?.id}</p>
+        <p>
+          {userInfo?.id} || {userInfo?.username}
+        </p>
       </div>
       <Toaster />
     </div>

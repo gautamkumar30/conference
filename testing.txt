@@ -1,0 +1,25 @@
+Users:
+1. bala - 66111f8d218f11b16ba01b49
+
+
+
+Testing Process:
+1. User registration
+2. User login
+3. Conference creation
+4. Conference registration (undergoing) (showing organizer correctly)
+    Found issue in displaying register button to non-attendee (under review)
+    Displaying register button
+    Updating attendees collections when pressed register button
+    Displaying submit paper button
+    Updating papers collections when paper submitted
+    
+    Issues:
+        Doesn't show whether the user submitted paper or not
+        Can submit unlimited number of Papers
+
+5. Submitted Papers section
+    Displaying papers correctly
+    Updating ratings correctly
+    Issues: 
+        Anybody can rate unlimited times

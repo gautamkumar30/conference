@@ -10,6 +10,8 @@ import { UserContext } from "../contexts/UserContext";
 import { useState } from "react";
 import { StickyNote } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
+import { toTitleCase } from "../utils/toTitleCase";
+import { toCapitalCase } from "../utils/toCapitalCase";
 
 const PaperCard = ({ paper }) => {
   const [userRating, setUserRating] = useState(null);
@@ -49,8 +51,8 @@ const PaperCard = ({ paper }) => {
         </div>
         <div>
           <p className="text-primary font-semibold text-[18px] tracking-tight">
-            {paper._id}
-            {/* {paper.title} */}
+            {/* {paper._id} */}
+            {toCapitalCase(paper.title)}
           </p>
           <p className="text-primary font-medium text-[18px] mt-1 tracking-tight opacity-80">
             {paper.userId.username}
