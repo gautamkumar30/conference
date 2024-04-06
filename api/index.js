@@ -271,14 +271,18 @@ app.post("/conference/organized", async (req, res) => {
   }
 });
 
-app.post("/user/registered", async (req, res) => {
+app.post("/conference/registered", async (req, res) => {
   try {
     // const { userId } = req.params;
     const { userId } = req.body;
+    console.log(userId);
+    // const userId = "66083be6a678cb9bd3d828bc";
 
-    const conferenceDocs = await Attendee.find({ userId: userId });
+    const conferenceDocs = await Attendee.find({ userId: userId }).populate(
+      "conferenceId"
+    );
 
-    console.log(conferenceDocs);
+    // console.log(conferenceDocs);
 
     res.status(200).json(conferenceDocs);
   } catch (error) {

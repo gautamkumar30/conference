@@ -152,28 +152,28 @@ const ConferenceDetails = () => {
       </div>
       <div className="flex flex-col gap-2">
         <p className="text-primary font-medium text-[18px] opacity-60">
-          <span className="text-primary font-bold text-[18px] opacity-90">
-            Location:{" "}
+          <span className="inline-block text-primary font-bold text-[18px] opacity-90 w-[140px]">
+            Location
           </span>
-          {conferenceDoc.venue || templateData.venue}
+          : {conferenceDoc.venue || templateData.venue}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
-          <span className="text-primary font-bold text-[18px] opacity-90">
-            Date:{" "}
+          <span className="inline-block w-[140px] text-primary font-bold text-[18px] opacity-90">
+            Date
           </span>
-          {conferenceDoc.date || templateData.date}
+          : {conferenceDoc.date || templateData.date}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
-          <span className="text-primary font-bold text-[18px] opacity-90">
-            Description:{" "}
+          <span className="inline-block w-[140px] text-primary font-bold text-[18px] opacity-90">
+            Description
           </span>
-          {conferenceDoc.description || templateData.description}
+          : {conferenceDoc.description || templateData.description}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
-          <span className="text-primary font-bold text-[18px] opacity-90">
-            Chairperson:{" "}
+          <span className="inline-block w-[140px] text-primary font-bold text-[18px] opacity-90">
+            Chairperson
           </span>
-          Harish Chopra, Neeraj Shah
+          : Harish Chopra, Neeraj Shah
         </p>
       </div>
       {/* Wrapper for top papers */}
@@ -203,8 +203,8 @@ const ConferenceDetails = () => {
               <DialogHeader>
                 <DialogTitle>Paper details</DialogTitle>
                 <DialogDescription>
-                  The title of the paper and the drive link to the paper can be
-                  provided
+                  Upload the paper to a cloud platform and provide the title and
+                  cloud link of the paper.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
