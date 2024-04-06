@@ -57,15 +57,19 @@ app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     const userDoc = await User.findOne({ username });
 
+    console.log(password === userDoc.password);
+
     if (password === userDoc.password) {
       jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
         if (err) throw err;
-        res.cookie("token", token).json({ id: userDoc._id, username });
+        res
+          .status(200)
+          .cookie("token", token)
+          .json({ id: userDoc._id, username });
       });
       //   res.json({ message: "Same user" });
     } else {
       //   alert("password mismatch");
-      res.send("password mismatch");
       res.status(400).json({ message: "Invalid credentials" });
     }
   } catch (error) {

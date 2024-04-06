@@ -19,14 +19,14 @@ const Signup = () => {
     });
 
     if (response.status === 200) {
-      alert("Registration successfull");
+      // alert("Registration successfull");
       toast.success("Account created successfully!");
 
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } else {
-      alert("Registration failed");
+      toast.error("Registration failed");
     }
   }
 

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,42 +21,54 @@ const Login = () => {
       credentials: "include",
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       response.json().then((userInfo) => setUserInfo(userInfo));
-      alert("Logged in");
+      // alert("Logged in");
+      toast.success("Logged in successfully!");
       // response.json().then((data) => console.log(data.username));
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } else {
-      alert("failed");
+      toast.error("Invalid credentials");
     }
   }
 
-  const inputClassName =
-    "h-[40px] border-primary border-[1px] rounded-lg px-4 py-6 focus:border-none focus:border-primary bg-transparent";
+  const inputStyle = "border-2 p-3";
 
   return (
-    <div className="w-full h-full bg-red-50 flex justify-center items-center">
-      <div className="flex flex-col gap-10">
-        <h1 className="text-center text-primary">Login</h1>
-        <form onSubmit={login} className="flex flex-col">
+    <main className="w-screen h-screen flex  flex-col gap-10 justify-center items-center">
+      <h1 className="text-subheading">Login to your account</h1>
+      <form
+        className="bg-white p-10 shadow-lg rounded-3xl text-primary font-medium flex flex-col gap-4 w-full max-w-[500px]"
+        onSubmit={login}
+      >
+        <div className="flex flex-col gap-3">
+          <label>Username</label>
           <input
             type="text"
-            placeholder="enter username"
+            className={inputStyle}
+            placeholder="Enter username"
             value={username}
-            onChange={(event) => setUsername(event.target.value)}
-            className={inputClassName}
+            onChange={(ev) => setUsername(ev.target.value)}
           />
+        </div>
+        <div className="flex flex-col gap-3">
+          <label>Password</label>
           <input
             type="text"
-            placeholder="enter password"
+            className={inputStyle}
+            placeholder="Enter password"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            className={inputClassName}
+            onChange={(ev) => setPassword(ev.target.value)}
           />
-          <button type="submit">Login</button>
-        </form>
-      </div>
-    </div>
+        </div>
+        <button className="button-cta mt-3" type="submit">
+          Login
+        </button>
+      </form>
+      <Toaster />
+    </main>
   );
 };
 

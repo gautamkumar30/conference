@@ -119,9 +119,11 @@ const ConferenceDetails = () => {
       }
     );
 
-    const temp = await attendeeDoc.json();
-
-    console.log(temp);
+    if (attendeeDoc.status === 201) {
+      const temp = await attendeeDoc.json();
+      console.log(temp);
+      toast.success("Registered successfully!");
+    }
   }
 
   async function submitPaper() {
