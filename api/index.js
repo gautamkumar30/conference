@@ -156,24 +156,48 @@ app.get(
   async (req, res) => {
     try {
       const { conferenceId, userId } = req.params;
+
+      const conferenceDoc = await Conference.findById(conferenceId).populate(
+        "organizer",
+        []
+      );
+
+      const objectIdString = conferenceDoc.organizer._id.toString();
+
+      console.log("c - " + objectIdString);
+      console.log("u - " + userId);
+      console.log(objectIdString === userId);
+
+      // if (objectIdString === userId) {
+      //   res.json({ role: "organizer" });
+      // }
       const attendeeDoc = await Attendee.findOne({
         userId: userId,
         conferenceId: conferenceId,
       });
 
-      if (attendeeDoc) {
-        res.status(200).json({
-          role: "attendee",
-          data: attendeeDoc,
-        });
+      if (objectIdString === userId) {
+        res.status(200).json({ role: "organizer" });
       } else {
-        res.status(204).json({
-          role: "non-attendee",
-          message: "Not a registered member",
-        });
+        console.log("Entering here");
+        if (attendeeDoc) {
+          res.status(200).json({
+            role: "attendee",
+            data: attendeeDoc,
+          });
+        } else {
+          console.log("Entered inside");
+          0;
+          const tempMsg = {
+            role: "non-attendee",
+            message: "Not a registered member",
+          };
+          console.log(tempMsg);
+          res.status(204).json(tempMsg);
+        }
       }
     } catch (error) {
-      res.status(400).send(error.message);
+      res.status(400).json({ message: error.message });
     }
   }
 );

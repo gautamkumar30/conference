@@ -53,7 +53,7 @@ const ConferenceDetails = () => {
 
   const { userInfo, setUserInfo } = useContext(UserContext);
 
-  const [userRole, setUserRole] = useState("non-attendee");
+  const [userRole, setUserRole] = useState(null);
 
   const [paperData, setPaperDoc] = useState(null);
 
@@ -72,11 +72,22 @@ const ConferenceDetails = () => {
       res.json().then((res) => {
         // console.log(res);
         setConferenceDoc(res);
+
+        // console.log(conferenceDoc.organizer?._id == userInfo.id);
+
+        // if (conferenceDoc.organizer?._id == userInfo.id) {
+        //   setUserRole("organizer");
+        //   console.log(userRole);
+        // }
       });
     });
   }, []);
 
   async function checkUserStatus() {
+    console.log("Inside check user status");
+
+    // console.log(conferenceDoc.organizer._id + " " + userInfo.id);
+
     const res = await fetch(
       "http://localhost:4000/conference/" +
         conferenceId +
@@ -84,16 +95,14 @@ const ConferenceDetails = () => {
         userInfo.id
     );
 
+    // console.log(res);
     const temp = await res.json();
 
-    console.log(temp.role);
-
     setUserRole(temp.role);
+    console.log(userRole);
   }
 
   if (userInfo.username) {
-    // console.log(userInfo)
-
     checkUserStatus();
   }
 
@@ -184,6 +193,14 @@ const ConferenceDetails = () => {
           <PaperCard />
           <PaperCard />
         </div>
+
+        {/* Dynamically render based on User Role */}
+
+        {console.log(userRole)}
+
+        {userRole === "organizer" && (
+          <button className="button-cta max-w-[250px]">{userRole}</button>
+        )}
 
         {userRole === "non-attendee" && (
           <button
