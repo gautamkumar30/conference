@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import {
   Dialog,
@@ -13,6 +13,7 @@ import {
 } from "../components/ui/dialog";
 import { toTitleCase } from "../utils/toTitleCase";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const PaperCard = () => {
   return (
@@ -56,6 +57,10 @@ const ConferenceDetails = () => {
   const [userRole, setUserRole] = useState(null);
 
   const [paperData, setPaperDoc] = useState(null);
+
+  const location = useLocation();
+
+  // console.log(location.pathname);
 
   useEffect(() => {
     fetch("http://localhost:4000/profile", { credentials: "include" }).then(
@@ -166,42 +171,53 @@ const ConferenceDetails = () => {
           <span className="inline-block text-primary font-bold text-[18px] opacity-90 w-[140px]">
             Location
           </span>
-          : {conferenceDoc.venue || templateData.venue}
+          : {"  "}
+          {conferenceDoc.venue || templateData.venue}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
           <span className="inline-block w-[140px] text-primary font-bold text-[18px] opacity-90">
             Date
           </span>
-          : {conferenceDoc.date || templateData.date}
+          : {"  "}
+          {conferenceDoc.date || templateData.date}
         </p>
         <p className="text-primary font-medium text-[18px] opacity-60">
           <span className="inline-block w-[140px] text-primary font-bold text-[18px] opacity-90">
             Description
           </span>
-          : {conferenceDoc.description || templateData.description}
+          : {"  "}
+          {conferenceDoc.description || templateData.description}
         </p>
-        <p className="text-primary font-medium text-[18px] opacity-60">
+        {/* Hiding Chairpersons */}
+        {/* <p className="text-primary font-medium text-[18px] opacity-60">
           <span className="inline-block w-[140px] text-primary font-bold text-[18px] opacity-90">
             Chairperson
           </span>
           : Harish Chopra, Neeraj Shah
-        </p>
+        </p> */}
       </div>
       {/* Wrapper for top papers */}
       <div className="flex flex-col gap-10">
-        <h1 className="text-subheading">Top Papers</h1>
+        {/* Hiding Top Papers */}
+        {/* <h1 className="text-subheading">Top Papers</h1>
         <div className="flex flex-col gap-10 justify-center">
           <PaperCard />
           <PaperCard />
           <PaperCard />
-        </div>
+        </div> */}
 
         {/* Dynamically render based on User Role */}
 
         {console.log(userRole)}
 
         {userRole === "organizer" && (
-          <button className="button-cta max-w-[250px]">{userRole}</button>
+          // <button className="button-cta max-w-[250px]">{userRole}</button>
+          <Link
+            to={location.pathname + "/papers"}
+            className="button-cta max-w-max text-center"
+          >
+            View submitted papers
+          </Link>
         )}
 
         {userRole === "non-attendee" && (
@@ -263,9 +279,9 @@ const ConferenceDetails = () => {
             </DialogContent>
           </Dialog>
         )}
-        <p>
+        {/* <p>
           {userInfo?.id} || {userInfo?.username}
-        </p>
+        </p> */}
       </div>
       <Toaster />
     </div>

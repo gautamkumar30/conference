@@ -21,5 +21,6 @@ Testing Process:
 5. Submitted Papers section
     Displaying papers correctly
     Updating ratings correctly
+    
     Issues: 
         Anybody can rate unlimited times

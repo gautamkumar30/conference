@@ -32,22 +32,25 @@ const Registered = () => {
 
   return (
     <div className="page-wrapper">
-      <h1>Registered</h1>
-      <p>
+      <h1 className="text-heading">Registered Conferences</h1>
+      {/* Dev purposes */}
+      {/* <p>
         Current User: {userInfo.id} || {userInfo.username}
-      </p>
+      </p> */}
       {conferenceDocs &&
-        conferenceDocs.map((conference, index) => {
+        conferenceDocs.map((conference) => {
           return (
             <ConferenceCard
-              key={index}
+              key={conference.conferenceId._id}
               id={conference.conferenceId._id}
               title={conference.conferenceId.title}
-              theme={conference.conferenceId._id}
+              theme={conference.conferenceId.theme}
               date={conference.conferenceId.date}
               venue={conference.conferenceId.venue}
               organizer={
-                conference.organizer?.username || "Organizer unavailable"
+                conference.organizer?.username
+                  ? conference.organizer.username
+                  : conference.conferenceId.description
               }
             />
           );

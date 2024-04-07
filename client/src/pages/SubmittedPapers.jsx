@@ -1,16 +1,13 @@
+import { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+import { StickyNote } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+import { UserContext } from "../contexts/UserContext";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "../components/ui/popover";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
-import { useState } from "react";
-import { StickyNote } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
-import { toTitleCase } from "../utils/toTitleCase";
 import { toCapitalCase } from "../utils/toCapitalCase";
 
 const PaperCard = ({ paper }) => {
@@ -62,8 +59,9 @@ const PaperCard = ({ paper }) => {
       <div className="flex flex-col gap-0 items-end justify-center">
         <p className="text-[25px] font-semibold text-primary leading-0">
           {paper.totalRating.toFixed(1)}
-          <br />
-          {paper.totalRaters}
+          {/* Dev purposes */}
+          {/* <br />
+          {paper.totalRaters} */}
         </p>
         <Popover>
           <PopoverTrigger className="text-secondary text-[14px] font-semibold">
@@ -119,7 +117,8 @@ const SubmittedPapers = () => {
     <div className="page-wrapper">
       <div className="flex flex-col gap-10">
         <h1 className="text-heading">Submitted Papers</h1>
-        <p>{userInfo?.id}</p>
+        {/* Dev purposes */}
+        {/* <p>{userInfo?.id}</p> */}
         {paperDocs &&
           paperDocs.map((paper) => <PaperCard key={paper._id} paper={paper} />)}
       </div>

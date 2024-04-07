@@ -1,9 +1,41 @@
-import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import { UserContext } from "../contexts/UserContext";
+
+const formList = [
+  {
+    id: "title",
+    label: "Title",
+    placeholder: "Eg. Green energy sustainability",
+    type: "text",
+  },
+  { id: "date", label: "Date", placeholder: "Eg. 10 April 2024", type: "text" },
+  {
+    id: "venue",
+    label: "Venue",
+    placeholder: "Eg. Le Royal Meridien, Chennai",
+    type: "text",
+  },
+  {
+    id: "registrationamount",
+    label: "Registration Amount",
+    placeholder: "Eg. $100",
+    type: "number",
+  },
+  {
+    id: "description",
+    label: "Description",
+    placeholder: "Eg. Description of the conference",
+    type: "text",
+  },
+  {
+    id: "theme",
+    label: "Theme",
+    placeholder: "Eg. Green Energy",
+    type: "text",
+  },
+];
 
 // eslint-disable-next-line react/prop-types
 const FormChild = ({ id, label, placeholder }) => {
@@ -13,35 +45,11 @@ const FormChild = ({ id, label, placeholder }) => {
       <input
         type="text"
         className="h-[40px] border-primary border-[1px] rounded-lg px-4 py-6 focus:border-none focus:border-primary bg-transparent"
-        // placeholder="Eg. The Art of Research and Development"
         placeholder={placeholder}
-        value={"Conference 1 from jeo"}
-        readOnly
       />
     </div>
   );
 };
-
-const formList = [
-  {
-    id: "title",
-    label: "Title",
-    placeholder: "Eg. The Art of Research and Development",
-  },
-  { id: "date", label: "Date", placeholder: "Eg. 10 April 2024" },
-  { id: "venue", label: "Venue", placeholder: "Eg. Chennai, India" },
-  {
-    id: "registrationamount",
-    label: "Registration Amount",
-    placeholder: "Eg. $100",
-  },
-  {
-    id: "description",
-    label: "Description",
-    placeholder: "Eg. Description of the conference",
-  },
-  { id: "theme", label: "Theme", placeholder: "Eg. Blockchain" },
-];
 
 const CreateConference = () => {
   const navigate = useNavigate();
@@ -58,21 +66,14 @@ const CreateConference = () => {
     );
   }, []);
 
-  // eslint-disable-next-line no-unused-vars
-  const formData = {
-    title: "Research",
-    date: "1 April",
-    venue: "Bangalore",
-    // organizer: userInfo.id,
-    organizer: userInfo?.id,
-  };
-
   async function create(ev) {
     ev.preventDefault();
     setIsCreateDisabled(true);
     console.log("create function triggered");
 
     const form = ev.target;
+
+    console.log(form);
 
     const formData = {
       title: form[0].value,
@@ -92,16 +93,15 @@ const CreateConference = () => {
       headers: { "Content-Type": "application/json" },
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       const responseData = await response.json();
       console.log("This is response data");
       console.log(responseData);
 
-      // alert("Conference created successfully!");
       toast.success("Conference created successfully!");
 
       setTimeout(() => {
-        navigate("/");
+        navigate("/conference/organized");
       }, 2000);
     } else {
       toast.error("Unable to create the conference");
@@ -109,11 +109,9 @@ const CreateConference = () => {
   }
   return (
     <div className="page-wrapper">
-      {/* <h1 className="text-heading">Organize a Conference</h1> */}
+      <h1 className="text-heading">Create Conference</h1>
       {/* For dev purposes */}
-      <h1 className="text-heading">Organize</h1>
-      {/* For dev purposes */}
-      <p>{userInfo?.username}</p>
+      {/* <p>{userInfo?.username}</p> */}
       <form onSubmit={create}>
         <div className="grid grid-row-3 grid-cols-2 gap-x-16 gap-y-10">
           {formList.map((item) => (
@@ -124,9 +122,6 @@ const CreateConference = () => {
               placeholder={item.placeholder}
             />
           ))}
-          {/* <button type="submit" className="border-2">
-            Create
-          </button> */}
         </div>
         <button
           type="submit"

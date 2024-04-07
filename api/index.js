@@ -111,7 +111,7 @@ app.post("/conference/create", async (req, res) => {
     const conferenceDoc = await Conference.create({
       title: formData.title,
       date: formData.date,
-      venue: formData.date,
+      venue: formData.venue,
       registrationAmount: formData.registrationAmount,
       description: formData.description,
       theme: formData.theme,

@@ -1,7 +1,5 @@
 import { useContext, useEffect } from "react";
-import ConferenceCard from "../components/widgets/ConferenceCard";
 import { UserContext } from "../contexts/UserContext";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -20,26 +18,13 @@ const Home = () => {
     <div className="page-wrapper">
       {/* <h1 className="text-heading">Welcome Gautam,</h1> */}
       <h1 className="text-heading">Welcome {userInfo?.username},</h1>
-      {/* <div className="w-full h-[200px] rounded-[20px] rounded-br-[100px] overflow-hidden">
+      <div className="w-full h-[300px] rounded-[20px] rounded-br-[100px] overflow-hidden">
         <img
           src="dashboardpic.png"
           alt="Conference image"
-          className="w-full h-[200px] object-cover"
+          className="w-full h-full object-cover"
         />
-      </div> */}
-
-      <div className="flex flex-row justify-between">
-        <h3 className="text-subheading">Registered Conferences</h3>
-        <Link
-          to={"/conference/registered"}
-          className="text-secondary font-semibold text-[16px]"
-        >
-          VIEW ALL
-        </Link>
       </div>
-      <ConferenceCard />
-      <ConferenceCard />
-      <ConferenceCard />
     </div>
   );
 };

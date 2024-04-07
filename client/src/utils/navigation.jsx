@@ -1,6 +1,5 @@
 import { Home } from "lucide-react";
 import { UserRoundCogIcon } from "lucide-react";
-import { MailPlus } from "lucide-react";
 import { SquarePen } from "lucide-react";
 import { CalendarCheck2 } from "lucide-react";
 
@@ -31,10 +30,5 @@ export const routes = [
     component: (
       <UserRoundCogIcon strokeWidth={strokeWidth} color={primaryColor} />
     ),
-  },
-  {
-    label: "Invitations",
-    route: "/invitations",
-    component: <MailPlus strokeWidth={strokeWidth} color={primaryColor} />,
   },
 ];
