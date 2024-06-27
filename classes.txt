@@ -1,6 +1,6 @@
 # CMS
 
-# Classes
+# Classes 
 
 - User
     - Attributes: Username, Email, University/Organization
