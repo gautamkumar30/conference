@@ -6,7 +6,7 @@
   "main": "api/index.js",
   "scripts": {
     "start": "node api/index.js", 
-    "dev": "nodemon api/index.js"b 
+    "dev": "nodemon api/index.js"
   },
   "keywords": [], 
   "author": "",
