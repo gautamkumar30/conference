@@ -10,7 +10,7 @@ import { Attendee } from "./models/Attendee.js";
 import { Paper } from "./models/Paper.js";
 
 const app = express();
-
+ 
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(cookieParser());
