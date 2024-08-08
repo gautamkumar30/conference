@@ -10,7 +10,7 @@ const AttendeeSchema = Schema(
     },
     conferenceId: {
       type: Schema.Types.ObjectId,
-      ref: "Conference",
+      ref: "Conference", 
     },
   },
   { timestamps: true }
