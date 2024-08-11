@@ -7,7 +7,7 @@ const Layout = () => {
       <Sidebar />
       <Outlet />
     </div>
-  );
+  ); 
 };
 
 export default Layout;
