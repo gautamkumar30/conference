@@ -10,6 +10,8 @@ const ConferenceCard = ({ id, theme, title, organizer, venue, date }) => {
         <div className="w-2/3 flex flex-col px-10 py-10">
           <p className="text-primary font-medium text-[14px] opacity-60">
             {theme ? theme : "BLOCKCHAIN"}
+
+            
           </p>
           <h3 className="text-subheading mb-8">
             {title ? toTitleCase(title) : "Conference Title"}
