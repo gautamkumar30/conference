@@ -8,6 +8,7 @@ const Layout = () => {
       <Outlet />
     </div> 
   ); 
+  
 };
 
 export default Layout;
