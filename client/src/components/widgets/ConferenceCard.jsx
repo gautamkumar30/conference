@@ -8,7 +8,7 @@ const ConferenceCard = ({ id, theme, title, organizer, venue, date }) => {
       <div className="w-full bg-white flex flex-row rounded-[40px] overflow-hidden">
         <div className="w-1/3 bg-secondary"></div>
         <div className="w-2/3 flex flex-col px-10 py-10">
-          <p className="text-primary font-medium text-[14px] opacity-60">
+          <p className="text-primary font-medium text-[14px] opacity-60"> 
             {theme ? theme : "BLOCKCHAIN"}
 
             
