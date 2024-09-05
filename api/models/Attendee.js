@@ -2,7 +2,7 @@
 
 import mongoose, { Mongoose, Schema } from "mongoose";
 
-const AttendeeSchema = Schema(
+const AttendeeSchema = Schema( 
   {
     userId: {
       type: Schema.Types.ObjectId,
