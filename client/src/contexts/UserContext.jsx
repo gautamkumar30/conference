@@ -10,5 +10,5 @@ export function UserContextProvider({ children }) {
       {children}
     </UserContext.Provider> 
     
-  );
+  ); 
 }
